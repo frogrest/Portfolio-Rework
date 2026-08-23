@@ -1,0 +1,21 @@
+import { socials } from '../data/socials'
+
+export function Footer() {
+  return (
+    <footer className="footer shell">
+      <div>
+        <a className="brand" href="#home" aria-label="GCN home">GCN<span>.</span></a>
+        <p>Creative Developer & Software Engineer</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href={socials.github} target="_blank" rel="noreferrer">GitHub</a>
+        <a href={socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href={socials.email}>Email</a>
+      </nav>
+      <div className="footer__meta">
+        <span>© 2026 Gian Carlo Noriega</span>
+        <span>Built with React + TypeScript</span>
+      </div>
+    </footer>
+  )
+}
