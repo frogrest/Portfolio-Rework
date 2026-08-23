@@ -2,95 +2,88 @@
 
 A cinematic React + TypeScript developer portfolio for Gian Carlo Noriega — full-stack developer, creative technologist, and video editor based in the Philippines.
 
+> **Full documentation:** see [DOCUMENTATION.md](./DOCUMENTATION.md) — a practical owner's manual covering architecture, file-by-file maps, content inventory, and step-by-step guides for every change you might make.
+
 ## Stack
 
 - React 19
 - Vite
-- TypeScript
-- Tailwind CSS 4
-- Motion
-- Lucide React
+- TypeScript (strict)
+- Motion (animations)
+- Lucide React (icons)
+- Plain CSS with custom properties (no Tailwind)
+- sharp (image pipeline scripts)
 - GitHub Pages
 
-## Development
+## Quick start
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Type checking
+## Scripts
 
-```bash
-npm run typecheck
-```
-
-## Production
-
-```bash
-npm run build
-npm run preview
-```
-
-Vite is configured with `base: '/Portfolio-Rework/'` because this repository is published at `https://<username>.github.io/Portfolio-Rework/`. If you rename the repository later, update this value to match the new repository name.
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run typecheck` | Type-check (`tsc -b`) |
+| `npm run build` | Type-check + production build to `dist/` |
+| `npm run preview` | Preview the built site locally |
+| `npm run generate:og` | Render `public/og-cover.svg` → `og-cover.png` |
+| `npm run optimize:images` | Generate WebP variants for images in `src/assets/images/` |
 
 ## Deployment
 
-GitHub Pages deployment is handled automatically by `.github/workflows/deploy.yml`.
+GitHub Pages deployment is handled automatically by `.github/workflows/deploy.yml` on every push to `main`:
 
 1. Push the repository to GitHub as `Portfolio-Rework`.
 2. Open **Settings → Pages**.
 3. Set **Source** to **GitHub Actions**.
 4. Push to `main`.
 
-```bash
-git add .
-git commit -m "Rebuild portfolio in React"
-git push
-```
+Vite is configured with `base: '/Portfolio-Rework/'` because the site is published at `https://<username>.github.io/Portfolio-Rework/`. If you rename the repository, update this value (and the URLs in `index.html` + `public/404.html`).
 
-The workflow installs dependencies, runs the production build, uploads `dist/`, and deploys it with the official GitHub Pages actions.
+## Changing content
+
+All content is data-driven — edit the files below (see [DOCUMENTATION.md](./DOCUMENTATION.md) for full examples):
+
+- Projects / case studies → `src/data/projects.ts`
+- Skills / services / specialties → `src/data/skills.ts`
+- Experience timeline → `src/data/experience.ts`
+- Email & social URLs (incl. pending LinkedIn URL) → `src/data/socials.ts`
+- Hero / About / Resume / Contact copy → `src/sections/*.tsx`
+- Meta tags & SEO → `index.html`
+- Resume PDF → `public/resume.pdf` (keep the filename)
 
 ## Replacing images
 
-All portfolio images are local Vite imports. Keep the filenames and replace the files directly:
+All portfolio images are local Vite imports. Keep the filenames and replace the files directly, then run `npm run optimize:images` to regenerate WebP variants:
 
-- `src/assets/images/hero-workspace.jpg` → personal workstation photo
-- `src/assets/images/profile.jpg` → real headshot
-- `src/assets/images/frogpos-cover.jpg` → authentic FrogPOS screenshot
-- `src/assets/images/prepaview-cover.jpg` → authentic gameplay screenshot
-- `src/assets/images/restaurant-bot-cover.jpg` → authentic application screenshot
+- `src/assets/images/hero-workspace.jpg` — hero background, originally from `Images/Cover.jpg`
+- `src/assets/images/profile.jpg` — real portrait, originally from `Images/Me.png`
+- `src/assets/images/frogpos-cover.jpg` — real FrogPOS dashboard screenshot
+- `src/assets/images/frogpos-pos.jpg` — additional FrogPOS POS screenshot (case-study gallery)
+- `src/assets/images/frogpos-receipt.jpg` — additional FrogPOS receipt screenshot (case-study gallery)
+- `src/assets/images/prepaview-cover.jpg` — real Prepaview game screenshot; 6 additional screenshots from itch.io are in `prepaview-shot-1.jpg` through `prepaview-shot-6.jpg`
+- `src/assets/images/restaurant-bot-cover.jpg` — real Restaurant Bot chatbot screenshot
 
-The current portrait is an anonymous generated silhouette. The current FrogPOS image is deliberately labeled as a screenshot placeholder so it is never presented as authentic UI.
+All images are now real assets sourced from the original portfolio (`frogrest/Portfolio`) and the Prepaview itch.io page (`frogrest.itch.io/prepaview`). See [DOCUMENTATION.md](./DOCUMENTATION.md#46-images) for the full inventory.
 
-Temporary free-use stock photography:
+## Static pages
 
-- Hero: So Phors / Pexels — https://www.pexels.com/photo/computer-monitor-displaying-lines-of-code-25437427/
-- Prepaview cover: Minh Phuc / Pexels — https://www.pexels.com/photo/a-computer-in-a-room-19931378/
-- Restaurant Bot cover: cottonbro studio / Pexels — https://www.pexels.com/photo/workstation-computer-monitor-with-html-editor-6804613/
+The rework also serves the original portfolio's static pages from `public/`:
 
-## Social links
+- `/Portfolio-Rework/blog/` — blog listing + two posts (FrogPOS build story, Prepaview thesis)
+- `/Portfolio-Rework/resume.html` — printable resume page
+- `/Portfolio-Rework/restaurant_chatbot.html` — Restaurant Bot prototype
 
-Edit `src/data/socials.ts` to update social URLs. The GitHub URL is configured for `frogrest`; the LinkedIn URL intentionally points to LinkedIn's home page until the exact personal profile URL is supplied.
+These plain-HTML pages depend on `public/Styles/styles.css`, `public/JS/script.js`, and `public/Images/` (all included).
 
-## Project content
+## Performance & accessibility
 
-Edit `src/data/projects.ts` to change titles, technologies, features, links, and case-study copy. Project markup is rendered through reusable components rather than duplicated by hand.
-
-## Resume
-
-`public/resume.pdf` is included so the hero Resume button never breaks. Replace it with the final recruiter-facing resume whenever needed; keep the filename unchanged.
-
-## Performance notes
-
-- Below-the-fold images are lazy-loaded.
-- Image dimensions/aspect ratios prevent layout shifts.
-- Hero image is eagerly loaded.
-- No video backgrounds, WebGL, or 3D libraries are used.
+- Below-the-fold images are lazy-loaded via `<picture>` with WebP `srcset` variants and JPG fallbacks; dimensions prevent layout shift.
+- The hero image is eagerly loaded.
 - Motion respects `prefers-reduced-motion`.
-- CSS effects are restrained and mostly static.
-- The app uses a modal case study rather than client-side routes, avoiding GitHub Pages refresh 404s.
-
-## Accessibility
-
-The site includes semantic sections, a skip link, keyboard-focus styles, Escape-to-close menus/modals, minimum touch targets, descriptive alt text, reduced-motion support, and no hover-only required interactions.
+- The app uses a modal case study rather than client-side routes, avoiding GitHub Pages refresh 404s; `public/404.html` redirects unknown URLs to the root.
+- Semantic sections, skip link, keyboard-focus styles, focus-trapped menus/modals with focus restoration, Escape-to-close, minimum touch targets, descriptive alt text, reduced-motion support.

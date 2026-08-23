@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Resume for Gian Carlo Noriega — Full-Stack Developer & Creative Technologist."
+    />
+    <title>Gian Carlo Noriega — Resume</title>
+    <style>
+      :root {
+        --ink: #292827;
+        --graphite: #666666;
+        --iris: #5b4bc8;
+        --aubergine: #33224b;
+        --fog: #e3e3e2;
+        --bone: #ffffff;
+        --parchment: #f2f0eb;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink);
+        background: var(--parchment);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .resume {
+        max-width: 820px;
+        margin: 24px auto;
+        background: var(--bone);
+        border: 1px solid var(--fog);
+        border-radius: 16px;
+        padding: 48px;
+        box-shadow: 0 10px 34px rgba(41, 40, 39, 0.08);
+      }
+
+      .toolbar {
+        max-width: 820px;
+        margin: 24px auto 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .print-btn {
+        background: var(--aubergine);
+        color: var(--bone);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .print-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .resume-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        border-bottom: 2px solid var(--iris);
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+      }
+
+      .resume-header h1 {
+        font-size: 30px;
+        letter-spacing: -0.03em;
+      }
+
+      .resume-header .role {
+        color: var(--iris);
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .contact-list {
+        text-align: right;
+        font-size: 12.5px;
+        color: var(--graphite);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .contact-list a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .contact-list a:hover {
+        color: var(--iris);
+        text-decoration: underline;
+      }
+
+      section {
+        margin-bottom: 22px;
+      }
+
+      h2 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--iris);
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-size: 15px;
+        letter-spacing: -0.01em;
+      }
+
+      p {
+        color: var(--ink);
+      }
+
+      .summary {
+        color: var(--graphite);
+      }
+
+      .skill-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .skill-group h3 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink);
+        margin-bottom: 6px;
+      }
+
+      .skill-group p {
+        color: var(--graphite);
+      }
+
+      .project {
+        margin-bottom: 14px;
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .project-header .meta {
+        font-size: 12.5px;
+        color: var(--iris);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .project p {
+        color: var(--graphite);
+        margin-top: 4px;
+      }
+
+      .project ul {
+        margin: 6px 0 0 18px;
+        color: var(--graphite);
+      }
+
+      .project li {
+        margin-bottom: 3px;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .timeline-item .year {
+        font-weight: 600;
+        color: var(--iris);
+        font-size: 13px;
+      }
+
+      .timeline-item .desc {
+        color: var(--graphite);
+      }
+
+      .timeline-item .desc strong {
+        color: var(--ink);
+      }
+
+      @media (max-width: 640px) {
+        .resume {
+          margin: 0;
+          border: none;
+          border-radius: 0;
+          padding: 28px 20px;
+        }
+        .toolbar {
+          margin: 16px;
+        }
+        .resume-header {
+          flex-direction: column;
+        }
+        .contact-list {
+          text-align: left;
+        }
+        .skill-grid {
+          grid-template-columns: 1fr;
+        }
+        .timeline-item {
+          grid-template-columns: 1fr;
+          gap: 2px;
+        }
+      }
+
+      @media print {
+        body {
+          background: var(--bone);
+        }
+        .resume {
+          box-shadow: none;
+          border: none;
+          border-radius: 0;
+          margin: 0;
+          max-width: none;
+          padding: 24px;
+        }
+        .toolbar {
+          display: none;
+        }
+        a {
+          color: inherit;
+        }
+      }
+
+      @page {
+        margin: 14mm;
+        size: A4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="print-btn" type="button" onclick="window.print()">
+        Download / Print PDF
+      </button>
+    </div>
+
+    <main class="resume">
+      <header class="resume-header">
+        <div>
+          <h1>Gian Carlo Noriega</h1>
+          <div class="role">Full-Stack Developer &amp; Creative Technologist</div>
+        </div>
+        <div class="contact-list">
+          <span>Philippines · Remote-friendly</span>
+          <a href="mailto:giannoriega4everything@gmail.com"
+            >giannoriega4everything@gmail.com</a
+          >
+          <a href="https://github.com/frogrest" target="_blank"
+            >github.com/frogrest</a
+          >
+          <a
+            href="https://linkedin.com/in/gian-carlo-noriega-02b70139b/"
+            target="_blank"
+            >linkedin.com/in/gian-carlo-noriega</a
+          >
+        </div>
+      </header>
+
+      <section>
+        <h2>Summary</h2>
+        <p class="summary">
+          Full-stack developer and creative technologist building at the
+          intersection of production software and visual storytelling. Founder
+          of FrogPOS, a live multi-tenant point-of-sale platform for Filipino
+          stores, with experience across React, TypeScript, Node.js, PostgreSQL,
+          and Unreal Engine. Also an experienced video editor and VFX artist
+          working in After Effects, Sony Vegas, and Unreal Engine.
+        </p>
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <div class="skill-grid">
+          <div class="skill-group">
+            <h3>Engineering</h3>
+            <p>
+              TypeScript, React, Node.js, PostgreSQL, Hono, Tailwind CSS,
+              JavaScript, Python, C#, Java, .NET, HTML/CSS
+            </p>
+          </div>
+          <div class="skill-group">
+            <h3>Creative</h3>
+            <p>
+              Unreal Engine (Blueprints, C++), After Effects, Sony Vegas,
+              CapCut, Canva
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Featured Projects</h2>
+
+        <div class="project">
+          <div class="project-header">
+            <h3>FrogPOS — Founder &amp; Full-Stack Developer</h3>
+            <span class="meta">2025 – Present</span>
+          </div>
+          <p>
+            Production point-of-sale platform for Filipino stores, live at
+            frogrest.com. React + TypeScript frontend, Hono API, and serverless
+            PostgreSQL.
+          </p>
+          <ul>
+            <li>Offline-first PWA — sales queue locally and auto-sync</li>
+            <li>
+              Multi-tenant SaaS — self-serve signup, subscriptions, row-level
+              security per store
+            </li>
+            <li>QR self-ordering, kitchen display, split billing, 80mm receipts</li>
+            <li>Full English / Tagalog localization</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <h3>Prepaview — Gameplay Prototype</h3>
+            <span class="meta">Unreal Engine</span>
+          </div>
+          <p>
+            High-fidelity gameplay prototype focused on responsive player
+            control and AI behavior systems, built with custom Blueprints and
+            C++ integrations.
+          </p>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <h3>Restaurant Bot — Conversational UI</h3>
+            <span class="meta">Vanilla JS</span>
+          </div>
+          <p>
+            State-driven food-ordering chatbot with zero dependencies, featuring
+            a compact state machine, fuzzy input resolution, XSS-safe rendering,
+            and ARIA wiring.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education &amp; Community</h2>
+        <div class="timeline-item">
+          <div class="year">2022 – 2026</div>
+          <div class="desc">
+            <strong>B.S. Computer Science</strong> — coursework in algorithms,
+            data structures, and full-stack development
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2022 – Present</div>
+          <div class="desc">
+            <strong>Video Editing &amp; VFX</strong> — cinematic content using
+            After Effects, Unreal Engine, and Sony Vegas
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2025 – Present</div>
+          <div class="desc">
+            <strong>DevCon PH</strong> — member of the Philippine developer
+            community, contributing to open-source and collaborative projects
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

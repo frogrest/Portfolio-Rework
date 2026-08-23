@@ -12,9 +12,11 @@ interface CaseStudyProps {
 export function CaseStudy({ project, onClose }: CaseStudyProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const dialogRef = useRef<HTMLElement>(null)
+  const returnFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     if (!project) return
+    returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
     closeRef.current?.focus()
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
@@ -32,6 +34,7 @@ export function CaseStudy({ project, onClose }: CaseStudyProps) {
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.classList.remove('modal-open')
+      returnFocusRef.current?.focus()
     }
   }, [project, onClose])
 
@@ -70,7 +73,20 @@ export function CaseStudy({ project, onClose }: CaseStudyProps) {
               <p>{project.subtitle}</p>
             </header>
 
-            <OptimizedImage src={project.image} alt={project.imageAlt} width={1600} height={1000} className="case-study__image" />
+            <OptimizedImage image={project.image} alt={project.imageAlt} width={1600} height={1000} className="case-study__image" eager sizes="min(1180px, 100vw)" />
+
+            {project.caseStudy.screenshots && project.caseStudy.screenshots.length > 0 && (
+              <section className="case-study__section case-study__gallery" aria-label="Screenshots">
+                <p className="mono case-kicker">SCREENSHOTS</p>
+                <div className="case-study__gallery-grid">
+                  {project.caseStudy.screenshots.map((shot) => (
+                    <figure key={shot.image.fallback} className="case-study__gallery-item">
+                      <OptimizedImage image={shot.image} alt={shot.alt} width={shot.width} height={shot.height} eager sizes="(min-width: 1024px) 560px, 100vw" />
+                    </figure>
+                  ))}
+                </div>
+              </section>
+            )}
 
             <div className="case-study__grid">
               <section><p className="mono case-kicker">THE PROBLEM</p><p>{project.caseStudy.problem}</p></section>

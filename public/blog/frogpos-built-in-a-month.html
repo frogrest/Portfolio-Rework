@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="How I built a multi-tenant, offline-first point-of-sale platform for Filipino stores in 30 days using React, Hono, Neon PostgreSQL, and AI-assisted development."
+    />
+    <meta
+      property="og:title"
+      content="I Built a Multi-Tenant POS in One Month — Here's What I Learned"
+    />
+    <meta
+      property="og:description"
+      content="A friend asked me to build a production point-of-sale platform for Filipino stores. I had 30 days, limited resources, and a lot of AI tools."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:image"
+      content="/Portfolio-Rework/Images/FrogPOS-Dashboard.png"
+    />
+    <title>I Built a Multi-Tenant POS in One Month — Gian Carlo Noriega</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;460;500;540;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../Styles/styles.css" />
+    <script>
+      // Apply saved theme immediately to avoid a flash of the wrong theme.
+      (function () {
+        var preferred =
+          localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", preferred);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ============================================================
+         SIMPLIFIED NAV (links back to the main portfolio)
+         ============================================================ -->
+    <nav class="site-nav nav-banner-visible blog-nav" aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a href="../index.html" class="nav-logo">GCN<span>.</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Portfolio</a>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+          >
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
+            </svg>
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="blog-page">
+      <article class="page-container blog-post">
+        <a href="index.html" class="blog-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to blog
+        </a>
+
+        <header class="blog-header">
+          <div class="section-label">
+            <span>Case Study</span>
+          </div>
+          <h1>I Built a Multi-Tenant POS in One Month — Here's What I Learned</h1>
+          <div class="blog-meta">
+            <span>August 2026</span>
+            <span>&middot;</span>
+            <span>8 min read</span>
+          </div>
+        </header>
+
+        <div class="post-hero">
+          <img
+            src="../Images/FrogPOS-Dashboard.png"
+            alt="FrogPOS dashboard"
+            loading="eager"
+          />
+        </div>
+
+        <p>
+          Three months ago, a friend reached out with a proposition: "I'll handle
+          the marketing and strategy — you build the POS." It was one of those
+          offers that sounds exciting for exactly five seconds before the reality
+          sinks in.
+        </p>
+
+        <p>
+          A point-of-sale system. Multi-tenant. Offline-first. In one month.
+        </p>
+
+        <p>
+          I was a Computer Science student with React and TypeScript experience,
+          but I had never shipped a production SaaS before. The timeline was tight,
+          the budget was practically zero, and the feature list was ambitious — QR
+          self-ordering, a kitchen display system, 80mm thermal receipts,
+          ingredient-based inventory, customer credit tracking, and full
+          English/Tagalog localization.
+        </p>
+
+        <p>I said yes anyway.</p>
+
+        <h2>The First Week — Architecture &amp; Panic</h2>
+
+        <p>
+          The first thing I did was reach for the tools I already knew: React on the
+          frontend, Node.js on the backend. But I needed to move fast. I chose Hono
+          — a lightweight, fast API framework — paired with Neon's serverless
+          PostgreSQL. The database architecture had to support multi-tenancy from
+          day one, with row-level security so each store's data was completely
+          isolated.
+        </p>
+
+        <p>
+          This was my first time designing a multi-tenant schema. I spent two days
+          on the database model alone, sketching out how stores, users, orders,
+          menu items, and inventory would relate. I used AI tools to generate
+          migration files and seed data, but I reviewed every line. The schema is
+          still largely unchanged from that first week.
+        </p>
+
+        <div class="post-hero">
+          <img
+            src="../Images/FrogPOS-POS.png"
+            alt="FrogPOS point-of-sale terminal"
+            loading="lazy"
+          />
+        </div>
+
+        <h2>The Second Week — Building the Core Loop</h2>
+
+        <p>
+          With the database in place, I built the core ordering flow: a customer
+          places an order → it appears on the kitchen display → the order is
+          fulfilled → a receipt is printed. This sounds simple, but each step had
+          edge cases. What happens when the internet drops mid-order? What if the
+          thermal printer runs out of paper? What if two customers order the same
+          last item?
+        </p>
+
+        <p>
+          The offline-first requirement was the hardest technical challenge. I
+          implemented a local queue that stores sales in IndexedDB when offline,
+          then auto-syncs when the connection returns. AI tools helped me prototype
+          the sync logic, but I had to write the conflict resolution myself —
+          last-write-wins works for orders, but not for inventory counts.
+        </p>
+
+        <h2>The Third Week — Features, Features, Features</h2>
+
+        <p>
+          Week three was a sprint. QR self-ordering (customers scan a QR code at
+          their table, browse the menu, and pay without waiting for a server).
+          Split billing. A kitchen display system that shows incoming orders in
+          real time. English/Tagalog localization so the interface works for both
+          customers and staff.
+        </p>
+
+        <p>
+          I used AI extensively here — generating component templates, writing SQL
+          queries, and even suggesting UX flows. But every piece of generated code
+          went through review. The AI was my junior developer; I was the senior
+          engineer. It could write the first draft, but I had to understand every
+          line to ship something reliable.
+        </p>
+
+        <h2>The Fourth Week — Polish &amp; Ship</h2>
+
+        <p>
+          The last week was about the things nobody sees: error handling, loading
+          states, edge cases, and the 80mm thermal receipt format. Getting a browser
+          to print a properly formatted receipt on a thermal printer turned out to
+          be surprisingly difficult — the escape sequences for the printer's
+          command language (ESC/POS) required exact byte sequences.
+        </p>
+
+        <div class="post-hero">
+          <img
+            src="../Images/FrogPOS-Receipt.png"
+            alt="FrogPOS thermal receipt"
+            loading="lazy"
+          />
+        </div>
+
+        <p>
+          I shipped on day 29. The marketing site went live at
+          <a href="https://frogrest.com" target="_blank">frogrest.com</a>, and the
+          POS app at <a href="https://pos.frogrest.com" target="_blank">pos.frogrest.com</a>.
+          Real Filipino stores started using it.
+        </p>
+
+        <h2>What I Learned</h2>
+
+        <ol>
+          <li>
+            <strong>Constraints are a feature, not a bug.</strong> A one-month
+            deadline forced me to make hard decisions about what to build and what
+            to skip. The result is a focused product instead of a feature-bloated
+            mess.
+          </li>
+          <li>
+            <strong>AI tools are multipliers, not replacements.</strong> I estimate
+            AI tools saved me 40-50% of development time on boilerplate and
+            repetitive tasks. But every architectural decision, every security
+            boundary, every edge case was mine. The AI couldn't design the
+            multi-tenant schema or debug the offline sync protocol.
+          </li>
+          <li>
+            <strong>Shipping is a skill.</strong> There's a gap between "it works on
+            my machine" and "it works in a restaurant." Real-world conditions — slow
+            networks, older devices, unfamiliar users — revealed issues no amount of
+            local testing could find. The only way to close that gap is to ship.
+          </li>
+          <li>
+            <strong>The technology stack matters less than the person using it.</strong>
+            React, Hono, and Neon were the right choices for this project, but the
+            real differentiator was the willingness to learn fast, ask the right
+            questions, and keep going when things broke.
+          </li>
+        </ol>
+
+        <h2>What's Next</h2>
+
+        <p>
+          FrogPOS is still live and onboarding stores. I'm working on the next
+          features: payment gateway integration, advanced reporting, and a
+          self-service menu editor. The project started as a one-month challenge,
+          but it's turning into a real product that serves real businesses.
+        </p>
+
+        <p>
+          If you're building something ambitious with limited resources, my advice
+          is simple: start before you're ready. You'll figure out the rest on the
+          way down.
+        </p>
+
+        <div class="post-footer">
+          <div class="post-tags">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>Node.js</span>
+            <span>PostgreSQL</span>
+            <span>Hono</span>
+            <span>SaaS</span>
+            <span>Offline-First</span>
+            <span>AI-Assisted Development</span>
+            <span>Entrepreneurship</span>
+          </div>
+          <p>
+            Want to talk architecture? Reach me at
+            <a href="mailto:giannoriega4everything@gmail.com"
+              >giannoriega4everything@gmail.com</a
+            >
+            or try FrogPOS at
+            <a href="https://frogrest.com" target="_blank">frogrest.com</a>.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-container">
+        <div class="footer-bottom">
+          <p>&copy; 2026 Gian Carlo Noriega</p>
+          <p><a href="../index.html">Back to portfolio &rarr;</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../JS/script.js"></script>
+  </body>
+</html>

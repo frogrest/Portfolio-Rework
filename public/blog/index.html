@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Writing and notes from Gian Carlo Noriega — covering FrogPOS, Prepaview, full-stack engineering, game development, and AI-assisted product building."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="/Portfolio-Rework/Images/Cover.jpg"
+    />
+    <title>Blog — Gian Carlo Noriega</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;460;500;540;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../Styles/styles.css" />
+    <script>
+      // Apply saved theme immediately to avoid a flash of the wrong theme.
+      (function () {
+        var preferred =
+          localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", preferred);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ============================================================
+         SIMPLIFIED NAV (links back to the main portfolio)
+         ============================================================ -->
+    <nav class="site-nav nav-banner-visible blog-nav" aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a href="../index.html" class="nav-logo">GCN<span>.</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Portfolio</a>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+          >
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
+            </svg>
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="blog-page">
+      <div class="page-container">
+        <a href="../index.html" class="blog-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to portfolio
+        </a>
+
+        <div class="blog-header">
+          <div class="section-label">
+            <span>Writing</span>
+          </div>
+          <h1>Notes &amp; Case Studies</h1>
+          <p>
+            Deep dives into the products I build — engineering decisions, lessons
+            learned, and the occasional war story from shipping software.
+          </p>
+        </div>
+
+        <div class="blog-grid">
+          <a
+            class="blog-card"
+            href="frogpos-built-in-a-month.html"
+          >
+            <div class="blog-meta">
+              <span>August 2026</span>
+              <span>&middot;</span>
+              <span>8 min read</span>
+            </div>
+            <h2>I Built a Multi-Tenant POS in One Month — Here's What I Learned</h2>
+            <p>
+              A friend asked me to build a production point-of-sale platform for
+              Filipino stores. I had 30 days, limited resources, and a lot of AI
+              tools. Here's the story of how FrogPOS went from idea to live
+              deployment.
+            </p>
+            <span class="blog-read-more">
+              Read the post
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+
+          <a
+            class="blog-card"
+            href="prepaview-thesis-unreal-engine.html"
+          >
+            <div class="blog-meta">
+              <span>March 2026</span>
+              <span>&middot;</span>
+              <span>5 min read</span>
+            </div>
+            <h2>How Three Students Built a Game in Unreal Engine — And Almost Didn't Graduate</h2>
+            <p>
+              A college thesis, a team of three, and a game that nearly didn't
+              ship. The story of Prepaview — the most exhausting, most rewarding
+              project of my college years.
+            </p>
+            <span class="blog-read-more">
+              Read the post
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-container">
+        <div class="footer-bottom">
+          <p>&copy; 2026 Gian Carlo Noriega</p>
+          <p><a href="../index.html">Back to portfolio &rarr;</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../JS/script.js"></script>
+  </body>
+</html>

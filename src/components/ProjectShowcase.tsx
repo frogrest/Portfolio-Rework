@@ -49,9 +49,7 @@ export function ProjectShowcase({ project, index, onOpenCaseStudy }: ProjectShow
         <div className="button-row project-actions">
           {project.liveUrl && <a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">LIVE WEBSITE <ArrowUpRight size={16} /></a>}
           {project.secondaryUrl && <a className="text-link" href={project.secondaryUrl} target="_blank" rel="noreferrer">{project.secondaryLabel ?? 'OPEN'} <ArrowUpRight size={16} /></a>}
-          {!project.liveUrl && project.id === 'prepaview' && <span className="text-link is-muted" aria-label="Watch reel not published yet">WATCH REEL · SOON</span>}
-          {!project.secondaryUrl && project.id === 'prepaview' && <span className="text-link is-muted" aria-label="Playable demo not published yet">PLAY DEMO · SOON</span>}
-          {!project.liveUrl && project.id === 'restaurant-bot' && <span className="text-link is-muted" aria-label="Restaurant Bot prototype link not published yet">VIEW PROTOTYPE · SOON</span>}
+          {project.soonLabels?.map((label) => <span key={label} className="text-link is-muted">{label}</span>)}
           <button className="text-link text-link--button" onClick={() => onOpenCaseStudy(project)}>CASE STUDY <ArrowRight size={16} /></button>
         </div>
       </motion.div>
@@ -65,7 +63,7 @@ export function ProjectShowcase({ project, index, onOpenCaseStudy }: ProjectShow
         onMouseMove={onPointerMove}
         onMouseLeave={resetPointer}
       >
-        <OptimizedImage src={project.image} alt={project.imageAlt} width={1600} height={1000} />
+        <OptimizedImage image={project.image} alt={project.imageAlt} width={1600} height={1000} sizes="(min-width: 1024px) 60vw, 100vw" />
         <div className="project-image-overlay" aria-hidden="true" />
         <span className="image-caption mono">{project.number} / {project.title}</span>
       </motion.div>

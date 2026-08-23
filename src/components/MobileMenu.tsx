@@ -12,9 +12,11 @@ interface MobileMenuProps {
 export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const returnFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     if (!open) return
+    returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
     closeRef.current?.focus()
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
@@ -32,6 +34,7 @@ export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuPr
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.classList.remove('menu-open')
+      returnFocusRef.current?.focus()
     }
   }, [open, onClose])
 

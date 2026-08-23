@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import { motion } from 'motion/react'
-import profile from '../assets/images/profile.jpg'
+import { profile } from '../assets/images'
 import { imageReveal, sectionReveal } from '../animations'
 import { OptimizedImage } from '../components/OptimizedImage'
 import { SectionLabel } from '../components/SectionLabel'
@@ -28,10 +28,10 @@ export function About() {
         </motion.div>
 
         <motion.div className="portrait-frame" variants={imageReveal} initial={reduced ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
-          <OptimizedImage src={profile} alt="Anonymous dark silhouette placeholder for Gian Carlo Noriega's future portrait." width={1100} height={1400} />
+          <OptimizedImage image={profile} alt="Portrait of Gian Carlo Noriega." width={1100} height={1400} sizes="(min-width: 640px) 45vw, 100vw" />
           <div className="portrait-frame__fade" aria-hidden="true" />
           <div className="portrait-frame__rim" aria-hidden="true" />
-          <span className="image-caption mono">PORTRAIT / REPLACE PROFILE.JPG</span>
+          <span className="image-caption mono">GIAN CARLO NORIEGA</span>
         </motion.div>
       </div>
     </section>

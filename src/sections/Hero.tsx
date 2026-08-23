@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowRight } from 'lucide-react'
 import { motion, useMotionValue, useSpring } from 'motion/react'
 import type { MouseEvent } from 'react'
-import heroWorkspace from '../assets/images/hero-workspace.jpg'
+import { heroWorkspace } from '../assets/images'
 import { revealText, staggerChildren } from '../animations'
 import { OptimizedImage } from '../components/OptimizedImage'
 import { useReducedMotion } from '../hooks/useReducedMotion'
@@ -27,7 +27,7 @@ export function Hero() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       >
-        <OptimizedImage src={heroWorkspace} alt="Dark monochrome developer workstation with a coding monitor and keyboard." width={1000} height={1324} eager />
+        <OptimizedImage image={heroWorkspace} alt="Cinematic dusk scene with a coding monitor and keyboard." width={1000} height={1324} eager sizes="(min-width: 1024px) 45vw, 74vw" />
       </motion.div>
       <div className="hero__wash" aria-hidden="true" />
       <div className="hero__grain" aria-hidden="true" />

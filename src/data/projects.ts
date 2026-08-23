@@ -1,13 +1,20 @@
-import frogposCover from '../assets/images/frogpos-cover.jpg'
-import prepaviewCover from '../assets/images/prepaview-cover.jpg'
-import restaurantBotCover from '../assets/images/restaurant-bot-cover.jpg'
+import { frogposCover, frogposPos, frogposReceipt, prepaviewCover, prepaviewShot1, prepaviewShot2, prepaviewShot3, prepaviewShot4, prepaviewShot5, prepaviewShot6, restaurantBotCover } from '../assets/images'
+import type { ResponsiveImage } from '../components/OptimizedImage'
+
+export interface CaseStudyScreenshot {
+  image: ResponsiveImage
+  alt: string
+  width: number
+  height: number
+}
 
 export interface ProjectCaseStudy {
   problem: string
   solution: string
   role: string
   result: string
-  screenshots: string[]
+  /** Extra screenshots shown as a gallery inside the case-study modal */
+  screenshots?: CaseStudyScreenshot[]
 }
 
 export interface Project {
@@ -19,11 +26,15 @@ export interface Project {
   description: string
   technologies: string[]
   features: string[]
-  image: string
+  image: ResponsiveImage
   imageAlt: string
   liveUrl?: string
   secondaryUrl?: string
   secondaryLabel?: string
+  /** Release status — 'live' for published links, 'soon' for placeholders */
+  status?: 'live' | 'soon'
+  /** Muted "· SOON" labels shown where links are not published yet */
+  soonLabels?: string[]
   caseStudy: ProjectCaseStudy
 }
 
@@ -49,10 +60,11 @@ export const projects: Project[] = [
       'English / Tagalog localization',
     ],
     image: frogposCover,
-    imageAlt: 'Temporary FrogPOS dashboard placeholder clearly marked for replacement with an authentic product screenshot.',
+    imageAlt: 'FrogPOS dashboard showing the live point-of-sale overview for a Filipino store.',
     liveUrl: 'https://frogrest.com',
     secondaryUrl: 'https://pos.frogrest.com',
     secondaryLabel: 'LIVE POS',
+    status: 'live',
     caseStudy: {
       problem:
         'Small food and retail businesses need a POS workflow that can remain dependable during unstable connectivity while still supporting modern cloud operations.',
@@ -62,7 +74,11 @@ export const projects: Project[] = [
         'Founder / Full-Stack Developer — product architecture, frontend implementation, backend systems, database design, deployment, and product iteration.',
       result:
         'A deployable product foundation that brings core restaurant and retail operations into one maintainable web application without overstating unverified business impact.',
-      screenshots: [frogposCover],
+      screenshots: [
+        { image: frogposCover, alt: 'FrogPOS dashboard overview.', width: 1280, height: 800 },
+        { image: frogposPos, alt: 'FrogPOS point-of-sale terminal.', width: 1280, height: 800 },
+        { image: frogposReceipt, alt: 'FrogPOS thermal receipt output.', width: 1080, height: 1920 },
+      ],
     },
   },
   {
@@ -83,7 +99,11 @@ export const projects: Project[] = [
       'Playable prototype',
     ],
     image: prepaviewCover,
-    imageAlt: 'Temporary gaming workstation stock image representing the Prepaview development process, not actual gameplay.',
+    imageAlt: 'Prepaview gameplay screenshot showing the interview simulation environment.',
+    liveUrl: 'https://frogrest.itch.io/prepaview',
+    secondaryUrl: 'https://youtu.be/v27Fh6bPfZI',
+    secondaryLabel: 'WATCH REEL',
+    status: 'live',
     caseStudy: {
       problem:
         'Traditional interview practice can feel passive and repetitive, while game-like simulations require both convincing interaction design and reliable gameplay systems.',
@@ -93,7 +113,14 @@ export const projects: Project[] = [
         'Developer — gameplay systems, Blueprint logic, C++ integrations, interaction design, prototyping, testing, and presentation.',
       result:
         'A playable prototype demonstrating how interview preparation can be reframed as an interactive simulation rather than a static questionnaire.',
-      screenshots: [prepaviewCover],
+      screenshots: [
+        { image: prepaviewShot1, alt: 'Prepaview interview simulation — lobby.', width: 1283, height: 729 },
+        { image: prepaviewShot2, alt: 'Prepaview interview simulation — conversation.', width: 1280, height: 724 },
+        { image: prepaviewShot3, alt: 'Prepaview interview simulation — office scene.', width: 1276, height: 726 },
+        { image: prepaviewShot4, alt: 'Prepaview interview simulation — feedback.', width: 1276, height: 723 },
+        { image: prepaviewShot5, alt: 'Prepaview interview simulation — role selection.', width: 660, height: 371 },
+        { image: prepaviewShot6, alt: 'Prepaview interview simulation — interviewer.', width: 1279, height: 723 },
+      ],
     },
   },
   {
@@ -114,7 +141,9 @@ export const projects: Project[] = [
       'ARIA accessibility support',
     ],
     image: restaurantBotCover,
-    imageAlt: 'Temporary developer workstation stock image used as a cover for the Restaurant Bot prototype.',
+    imageAlt: 'Restaurant Bot chat interface showing a conversational food-ordering flow.',
+    liveUrl: `${import.meta.env.BASE_URL}restaurant_chatbot.html`,
+    status: 'live',
     caseStudy: {
       problem:
         'Conversational ordering can become unpredictable quickly when intent matching, menu navigation, and interface accessibility are handled as ad-hoc conditions.',
@@ -124,7 +153,6 @@ export const projects: Project[] = [
         'Frontend Developer — interaction model, state handling, accessibility, product matching, and interface implementation.',
       result:
         'A compact framework-free prototype that demonstrates deterministic conversational UX and accessibility-minded frontend engineering.',
-      screenshots: [restaurantBotCover],
     },
   },
 ]

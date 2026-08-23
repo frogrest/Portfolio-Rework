@@ -13,7 +13,7 @@ export function Footer() {
         <a href={socials.email}>Email</a>
       </nav>
       <div className="footer__meta">
-        <span>© 2026 Gian Carlo Noriega</span>
+        <span>© {new Date().getFullYear()} Gian Carlo Noriega</span>
         <span>Built with React + TypeScript</span>
       </div>
     </footer>

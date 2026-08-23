@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A college thesis, a team of three, and a game that nearly didn't ship. The story of Prepaview — the most exhausting, most rewarding project of my college years."
+    />
+    <meta
+      property="og:title"
+      content="How Three Students Built a Game in Unreal Engine — And Almost Didn't Graduate"
+    />
+    <meta
+      property="og:description"
+      content="A college thesis, a team of three, and a game that nearly didn't ship. The story of Prepaview — the most exhausting, most rewarding project of my college years."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:image"
+      content="/Portfolio-Rework/Images/Prepaview.jpg"
+    />
+    <title>How Three Students Built a Game in Unreal Engine — Gian Carlo Noriega</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;460;500;540;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../Styles/styles.css" />
+    <script>
+      // Apply saved theme immediately to avoid a flash of the wrong theme.
+      (function () {
+        var preferred =
+          localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", preferred);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ============================================================
+         SIMPLIFIED NAV (links back to the main portfolio)
+         ============================================================ -->
+    <nav class="site-nav nav-banner-visible blog-nav" aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a href="../index.html" class="nav-logo">GCN<span>.</span></a>
+        <div class="nav-links">
+          <a href="../index.html">Portfolio</a>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+          >
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
+            </svg>
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="blog-page">
+      <article class="page-container blog-post">
+        <a href="index.html" class="blog-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Back to blog
+        </a>
+
+        <header class="blog-header">
+          <div class="section-label">
+            <span>Case Study</span>
+          </div>
+          <h1>How Three Students Built a Game in Unreal Engine — And Almost Didn't Graduate</h1>
+          <div class="blog-meta">
+            <span>March 2026</span>
+            <span>&middot;</span>
+            <span>5 min read</span>
+          </div>
+        </header>
+
+        <div class="post-hero">
+          <img
+            src="../Images/Prepaview.jpg"
+            alt="Prepaview gameplay prototype"
+            loading="eager"
+          />
+        </div>
+
+        <h2>The Setup — October 2025</h2>
+
+        <p>
+          Somewhere between "this is due in a year" and "this is due in a month,"
+          our thesis stopped being a project and became a test of endurance.
+        </p>
+
+        <p>
+          Prepaview started in late 2025 as a three-person team. I was the leader
+          and the one building the game in Unreal Engine. A classmate handled
+          co-development — the helper who caught the bugs I missed. Our third
+          teammate owned the documentation, writing the thesis paper that would
+          eventually face our panel.
+        </p>
+
+        <p>
+          The plan was simple: build a high-fidelity gameplay prototype with
+          responsive controls and believable AI, then write the paper around it.
+        </p>
+
+        <p>The execution was not.</p>
+
+        <h2>The Stall — December 2025</h2>
+
+        <p>
+          By December 2025 we had stalled. My co-developer and I were plateauing
+          — real life had a way of showing up right when the semester demanded
+          everything. The project sat unfinished, the bugs piled up, and the
+          deadline didn't care.
+        </p>
+
+        <h2>The Lock-In — January to March 2026</h2>
+
+        <p>
+          So we made the only decision that made sense: we locked in for the
+          final month and reworked the entire project.
+        </p>
+
+        <p>
+          The rework was brutal. Features we thought were done were held
+          together by duct tape. AI systems misbehaved. Movement felt off. Every
+          fix uncovered two more problems. We threw out what didn't work,
+          rebuilt what did, and kept the parts worth keeping.
+        </p>
+
+        <h2>The Final Week — March 2026</h2>
+
+        <p>
+          Then came the final week. I stopped sleeping properly. I put every
+          waking hour I had into Prepaview — fixing crashes, tuning player
+          control, getting the AI to behave, polishing the build. My teammates
+          held down the documentation and kept the thesis moving. We worked like
+          the deadline was a physical wall closing in, because it was.
+        </p>
+
+        <p>
+          On the last day, it worked. We built the Android build, published it,
+          and handed in a thesis we were proud of. Not because it was perfect —
+          it wasn't. But because three students, a pile of bugs, and a deadline
+          that almost won got shipped anyway.
+        </p>
+
+        <h2>What I Learned</h2>
+
+        <ol>
+          <li>
+            <strong>Roles matter more than titles.</strong> We had a leader, a
+            builder, and a documenter — and we needed all three. When I was
+            heads-down in the engine, my teammates kept the thesis alive. Nobody
+            could do it alone.
+          </li>
+          <li>
+            <strong>Progress isn't linear.</strong> We plateaued for months, then
+            compressed a semester's worth of work into one month. Sometimes a
+            project needs time to stew before you can see what's actually wrong
+            with it.
+          </li>
+          <li>
+            <strong>The last 10% is the real work.</strong> The game worked at
+            80% for weeks. The final stretch — the bugs, the polish, the Android
+            build — is where almost everything broke. That's the part you can't
+            skip.
+          </li>
+          <li>
+            <strong>Ship, even if it's ugly.</strong> We published with rough
+            edges. It still shipped. A thesis on paper is a requirement; a thesis
+            that runs on a phone is a story.
+          </li>
+        </ol>
+
+        <h2>What's Next</h2>
+
+        <p>
+          Prepaview is done — but the lessons aren't. The discipline I found in
+          that final month is the same discipline I used to build FrogPOS. If
+          you're in the middle of your own final month: keep going. The other
+          side is worth it.
+        </p>
+
+        <div class="post-footer">
+          <div class="post-tags">
+            <span>Unreal Engine</span>
+            <span>C++</span>
+            <span>Blueprints</span>
+            <span>Game Development</span>
+            <span>Android</span>
+            <span>College Thesis</span>
+            <span>Teamwork</span>
+          </div>
+          <p>
+            Play Prepaview on
+            <a href="https://frogrest.itch.io/prepaview" target="_blank"
+              >frogrest.itch.io/prepaview</a
+            >, watch the reel at
+            <a href="https://youtu.be/v27Fh6bPfZI" target="_blank"
+              >youtu.be/v27Fh6bPfZI</a
+            >, or reach out at
+            <a href="mailto:giannoriega4everything@gmail.com"
+              >giannoriega4everything@gmail.com</a
+            >.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-container">
+        <div class="footer-bottom">
+          <p>&copy; 2026 Gian Carlo Noriega</p>
+          <p><a href="../index.html">Back to portfolio &rarr;</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../JS/script.js"></script>
+  </body>
+</html>
