@@ -7,7 +7,7 @@ export interface Experience {
 
 export const experience: Experience[] = [
   {
-    period: '2025 — PRESENT',
+    period: '2026 — PRESENT',
     title: 'FrogPOS',
     role: 'Founder / Full-Stack Developer',
     description: 'Designed, developed, and deployed a multi-tenant point-of-sale platform for Filipino businesses.',
