@@ -4,6 +4,5 @@ export const socials = {
   emailAddress,
   email: `mailto:${emailAddress}`,
   github: 'https://github.com/frogrest',
-  // Replace with Gian Carlo's exact profile URL when available.
-  linkedin: 'https://www.linkedin.com/',
+  linkedin: 'https://www.linkedin.com/in/gian-noriega-62144b368',
 } as const
