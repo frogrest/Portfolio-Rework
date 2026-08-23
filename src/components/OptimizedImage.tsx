@@ -4,9 +4,7 @@ export interface ResponsiveImageSource {
 }
 
 export interface ResponsiveImage {
-  /** JPG fallback for browsers without WebP support */
   fallback: string
-  /** WebP variants, ascending by width */
   sources: ResponsiveImageSource[]
 }
 
@@ -19,22 +17,17 @@ interface OptimizedImageProps {
   sizes?: string
 }
 
-export function OptimizedImage({ image, alt, width, height, className = '', sizes = '100vw' }: OptimizedImageProps) {
-  const srcSet = image.sources.map((source) => `${source.src} ${source.width}w`).join(', ')
-
+export function OptimizedImage({ image, alt, width, height, className = '' }: OptimizedImageProps) {
   return (
     <span className={`optimized-image ${className}`} style={{ aspectRatio: `${width} / ${height}` }}>
-      <picture>
-        {srcSet && <source type="image/webp" srcSet={srcSet} sizes={sizes} />}
-        <img
-          src={image.fallback}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="eager"
-          decoding="async"
-        />
-      </picture>
+      <img
+        src={image.fallback}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="eager"
+        decoding="async"
+      />
     </span>
   )
 }
