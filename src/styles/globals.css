@@ -118,7 +118,7 @@ img, video { height: auto; }
 .about-links { margin-top: 1.2rem; }
 .portrait-frame { position: relative; align-self: end; max-width: 700px; justify-self: end; width: 100%; overflow: hidden; border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
 .portrait-frame .optimized-image { aspect-ratio: 4 / 5 !important; }
-.portrait-frame img { filter: grayscale(.65) contrast(1.04) brightness(1.1); object-position: center top; }
+.portrait-frame img { filter: grayscale(.3) contrast(1.1) brightness(1.5); object-position: center top; }
 .portrait-frame__fade { position: absolute; inset: 0; background: linear-gradient(90deg, var(--background) 0%, transparent 34%, transparent 100%), linear-gradient(0deg, rgba(7,9,12,.72), transparent 35%); }
 .portrait-frame__rim { position: absolute; top: 10%; right: -10%; width: 35%; height: 55%; border-radius: 50%; background: rgba(0,168,198,.12); filter: blur(70px); mix-blend-mode: screen; }
 
