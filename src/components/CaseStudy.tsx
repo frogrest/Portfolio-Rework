@@ -80,7 +80,7 @@ export function CaseStudy({ project, onClose }: CaseStudyProps) {
                 <p className="mono case-kicker">SCREENSHOTS</p>
                 <div className="case-study__gallery-grid">
                   {project.caseStudy.screenshots.map((shot) => (
-                    <figure key={shot.image.fallback} className="case-study__gallery-item">
+                    <figure key={shot.image.fallback} className={`case-study__gallery-item ${shot.height > shot.width ? 'is-portrait' : ''}`}>
                       <OptimizedImage image={shot.image} alt={shot.alt} width={shot.width} height={shot.height} sizes="(min-width: 1024px) 560px, 100vw" />
                     </figure>
                   ))}

@@ -166,7 +166,7 @@ img, video { height: auto; }
 .project-features li { position: relative; padding-left: 1rem; color: var(--text-muted); font-size: .78rem; line-height: 1.5; }
 .project-features li::before { content: ''; position: absolute; left: 0; top: .52em; width: 4px; height: 4px; background: var(--accent); }
 .project-showcase__visual { position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--border); --pointer-x: 0px; --pointer-y: 0px; }
-.project-showcase__visual .optimized-image { aspect-ratio: 16 / 10 !important; transform: translate(var(--pointer-x), var(--pointer-y)) scale(1.025); transition: transform .35s var(--ease); }
+.project-showcase__visual .optimized-image { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; transform: translate(var(--pointer-x), var(--pointer-y)) scale(1.025); transition: transform .35s var(--ease); }
 .project-showcase__visual:hover .optimized-image img { transform: scale(1.035); }
 .project-showcase__visual img { filter: saturate(.9) contrast(1.04) brightness(1); }
 .project-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(4,6,8,.62)); pointer-events: none; }
@@ -183,7 +183,7 @@ img, video { height: auto; }
 .case-study__image { border: 1px solid var(--border); }
 .case-study__image img { filter: saturate(.9) brightness(1); }
 .case-study__gallery { border-top: 1px solid var(--border); }
-.case-study__gallery-grid { display: grid; gap: 1.5rem; }
+.case-study__gallery-grid { display: grid; gap: 1.5rem; align-items: start; }
 .case-study__gallery-item { margin: 0; }
 .case-study__gallery-item .optimized-image { border: 1px solid var(--border); }
 .case-study__gallery-item img { filter: saturate(.85) brightness(1.15); }
@@ -230,6 +230,7 @@ img, video { height: auto; }
   .case-study { padding-inline: 2rem; }
   .case-study__grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .case-study__gallery-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .case-study__gallery-item.is-portrait { grid-column: 1 / -1; }
   .contact-lower { grid-template-columns: 1.25fr .9fr; }
   .contact-actions { grid-column: 1 / -1; }
   .footer { grid-template-columns: 1fr auto; }
