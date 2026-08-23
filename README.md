@@ -32,13 +32,13 @@ npm run build
 npm run preview
 ```
 
-Vite is configured with `base: '/Portfolio/'` so generated asset URLs work when this repository is published at `https://<username>.github.io/Portfolio/`.
+Vite is configured with `base: '/Portfolio-Rework/'` because this repository is published at `https://<username>.github.io/Portfolio-Rework/`. If you rename the repository later, update this value to match the new repository name.
 
 ## Deployment
 
 GitHub Pages deployment is handled automatically by `.github/workflows/deploy.yml`.
 
-1. Push the repository to GitHub as `Portfolio`.
+1. Push the repository to GitHub as `Portfolio-Rework`.
 2. Open **Settings → Pages**.
 3. Set **Source** to **GitHub Actions**.
 4. Push to `main`.
