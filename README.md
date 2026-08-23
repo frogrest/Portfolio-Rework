@@ -37,10 +37,15 @@ npm run dev
 
 GitHub Pages deployment is handled automatically by `.github/workflows/deploy.yml` on every push to `main`:
 
-1. Push the repository to GitHub as `Portfolio-Rework`.
-2. Open **Settings → Pages**.
-3. Set **Source** to **GitHub Actions**.
-4. Push to `main`.
+```bash
+git add .
+git commit -m "Describe your change"
+git push
+```
+
+1. The repo is `Portfolio-Rework`, published at `https://frogrest.github.io/Portfolio-Rework/`.
+2. **Settings → Pages → Source** must be set to **GitHub Actions** (not "Deploy from a branch"). This is already configured.
+3. Push to `main` — the workflow builds and deploys automatically.
 
 Vite is configured with `base: '/Portfolio-Rework/'` because the site is published at `https://<username>.github.io/Portfolio-Rework/`. If you rename the repository, update this value (and the URLs in `index.html` + `public/404.html`).
 

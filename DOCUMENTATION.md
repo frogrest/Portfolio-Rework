@@ -217,6 +217,8 @@ The five source JPGs plus their generated WebP variants and the `index.ts` modul
 
 The site URL is determined by the repo name because Vite's `base` is `/Portfolio-Rework/`.
 
+> **Important**: In the repository's **Settings → Pages → Build and deployment → Source**, this must be set to **"GitHub Actions"** (not "Deploy from a branch"). Otherwise the raw source files are served instead of the built application.
+
 ---
 
 ## 3. What the website contains
@@ -567,7 +569,9 @@ git push
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and publishes automatically. Deployment progress appears under the repository's **Actions** tab; the live URL is shown in the workflow run summary.
 
-You can also trigger a deploy manually from the Actions tab (workflow_dispatch).
+You can also trigger a deploy manually from the Actions tab (workflow_dispatch) — or with an empty commit: `git commit --allow-empty -m "Trigger Pages deploy"` followed by `git push`.
+
+**One-time setup** (already done): GitHub **Settings → Pages → Source** must be **"GitHub Actions"**. If it's set to "Deploy from a branch", the raw source code is served and the site appears blank.
 
 ---
 
