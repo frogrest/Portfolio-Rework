@@ -22,11 +22,6 @@ export const staggerChildren: Variants = {
   visible: { transition: { staggerChildren: 0.08 } },
 }
 
-export const imageReveal: Variants = {
-  hidden: { opacity: 0, clipPath: 'inset(0 0 100% 0)' },
-  visible: { opacity: 1, clipPath: 'inset(0 0 0% 0)', transition: { duration: 0.9, ease } },
-}
-
 export const sectionReveal: Variants = {
   hidden: { opacity: 0, y: 36 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease } },

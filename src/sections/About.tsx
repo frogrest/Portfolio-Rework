@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { motion } from 'motion/react'
 import { profile } from '../assets/images'
-import { imageReveal, sectionReveal } from '../animations'
+import { sectionReveal } from '../animations'
 import { OptimizedImage } from '../components/OptimizedImage'
 import { SectionLabel } from '../components/SectionLabel'
 import { socials } from '../data/socials'
@@ -27,7 +27,7 @@ export function About() {
           </div>
         </motion.div>
 
-        <motion.div className="portrait-frame" variants={imageReveal} initial={reduced ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+        <motion.div className="portrait-frame" initial={false} whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
           <OptimizedImage image={profile} alt="Portrait of Gian Carlo Noriega." width={1100} height={1400} sizes="(min-width: 640px) 45vw, 100vw" />
           <div className="portrait-frame__fade" aria-hidden="true" />
           <div className="portrait-frame__rim" aria-hidden="true" />

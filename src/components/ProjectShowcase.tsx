@@ -2,7 +2,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { motion } from 'motion/react'
 import type { MouseEvent } from 'react'
 import type { Project } from '../data/projects'
-import { imageReveal, sectionReveal } from '../animations'
+import { sectionReveal } from '../animations'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { OptimizedImage } from './OptimizedImage'
 
@@ -56,8 +56,7 @@ export function ProjectShowcase({ project, index, onOpenCaseStudy }: ProjectShow
 
       <motion.div
         className="project-showcase__visual"
-        variants={imageReveal}
-        initial={reduced ? false : 'hidden'}
+        initial={false}
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         onMouseMove={onPointerMove}
