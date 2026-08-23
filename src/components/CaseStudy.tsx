@@ -73,7 +73,7 @@ export function CaseStudy({ project, onClose }: CaseStudyProps) {
               <p>{project.subtitle}</p>
             </header>
 
-            <OptimizedImage image={project.image} alt={project.imageAlt} width={1600} height={1000} className="case-study__image" eager sizes="min(1180px, 100vw)" />
+            <OptimizedImage image={project.image} alt={project.imageAlt} width={1600} height={1000} className="case-study__image" sizes="min(1180px, 100vw)" />
 
             {project.caseStudy.screenshots && project.caseStudy.screenshots.length > 0 && (
               <section className="case-study__section case-study__gallery" aria-label="Screenshots">
@@ -81,7 +81,7 @@ export function CaseStudy({ project, onClose }: CaseStudyProps) {
                 <div className="case-study__gallery-grid">
                   {project.caseStudy.screenshots.map((shot) => (
                     <figure key={shot.image.fallback} className="case-study__gallery-item">
-                      <OptimizedImage image={shot.image} alt={shot.alt} width={shot.width} height={shot.height} eager sizes="(min-width: 1024px) 560px, 100vw" />
+                      <OptimizedImage image={shot.image} alt={shot.alt} width={shot.width} height={shot.height} sizes="(min-width: 1024px) 560px, 100vw" />
                     </figure>
                   ))}
                 </div>

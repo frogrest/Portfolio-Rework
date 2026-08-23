@@ -16,11 +16,10 @@ interface OptimizedImageProps {
   width: number
   height: number
   className?: string
-  eager?: boolean
   sizes?: string
 }
 
-export function OptimizedImage({ image, alt, width, height, className = '', eager = false, sizes = '100vw' }: OptimizedImageProps) {
+export function OptimizedImage({ image, alt, width, height, className = '', sizes = '100vw' }: OptimizedImageProps) {
   const srcSet = image.sources.map((source) => `${source.src} ${source.width}w`).join(', ')
 
   return (
@@ -32,8 +31,7 @@ export function OptimizedImage({ image, alt, width, height, className = '', eage
           alt={alt}
           width={width}
           height={height}
-          loading={eager ? 'eager' : 'lazy'}
-          fetchPriority={eager ? 'high' : 'auto'}
+          loading="eager"
           decoding="async"
         />
       </picture>
