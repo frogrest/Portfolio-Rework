@@ -32,6 +32,7 @@ export function ProjectShowcase({ project, index, onOpenCaseStudy }: ProjectShow
 
   return (
     <article className={`project-showcase ${index % 2 ? 'is-reversed' : ''}`}>
+      <div className="project-number" aria-hidden="true">{project.number}</div>
       <motion.div
         className="project-showcase__content"
         variants={sectionReveal}
@@ -39,7 +40,6 @@ export function ProjectShowcase({ project, index, onOpenCaseStudy }: ProjectShow
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="project-number" aria-hidden="true">{project.number}</div>
         <p className="eyebrow">{project.category}</p>
         <h3>{project.title}</h3>
         <p className="project-subtitle">{project.subtitle}</p>
