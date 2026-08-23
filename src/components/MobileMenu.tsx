@@ -1,6 +1,8 @@
-import { ArrowUpRight, X } from 'lucide-react'
+import { ArrowUpRight, FileText, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef } from 'react'
+
+const blogHref = `${import.meta.env.BASE_URL}blog/`
 
 interface MobileMenuProps {
   open: boolean
@@ -60,13 +62,14 @@ export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuPr
             {items.map((item, index) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={item.id === 'blog' ? blogHref : `#${item.id}`}
                 className={activeSection === item.id ? 'is-active' : ''}
                 onClick={onClose}
               >
                 <span className="mono">0{index + 1}</span>
                 <span>{item.label}</span>
                 {item.id === 'contact' && <ArrowUpRight size={20} aria-hidden="true" />}
+                {item.id === 'blog' && <FileText size={20} aria-hidden="true" />}
               </a>
             ))}
           </nav>
