@@ -64,7 +64,7 @@ export function CaseStudy({ project, onClose }: CaseStudyProps) {
           >
             <div className="case-study__bar">
               <span className="mono">PROJECT {project.number}</span>
-              <button ref={closeRef} className="icon-button" onClick={onClose} aria-label="Close case study"><X size={22} /></button>
+              <button ref={closeRef} className="icon-button" onClick={onClose} aria-label="Close project"><X size={22} /></button>
             </div>
 
             <header className="case-study__hero">
