@@ -50,7 +50,7 @@ export function ProjectShowcase({ project, index, onOpenCaseStudy }: ProjectShow
           {project.liveUrl && <a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">LIVE WEBSITE <ArrowUpRight size={16} /></a>}
           {project.secondaryUrl && <a className="text-link" href={project.secondaryUrl} target="_blank" rel="noreferrer">{project.secondaryLabel ?? 'OPEN'} <ArrowUpRight size={16} /></a>}
           {project.soonLabels?.map((label) => <span key={label} className="text-link is-muted">{label}</span>)}
-          <button className="text-link text-link--button" onClick={() => onOpenCaseStudy(project)}>PROJECT <ArrowRight size={16} /></button>
+          <button className="text-link text-link--button" onClick={() => onOpenCaseStudy(project)}>CASE STUDY <ArrowRight size={16} /></button>
         </div>
       </motion.div>
 
