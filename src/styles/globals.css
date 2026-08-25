@@ -340,6 +340,7 @@ img, video { height: auto; }
   .project-showcase__visual { min-height: min(66vh, 720px); }
   .project-showcase__visual .optimized-image { height: 100%; aspect-ratio: auto !important; }
   .project-number { position: absolute; right: 100%; top: -1rem; margin-right: 1.2rem; font-size: clamp(6rem, 10vw, 10rem); }
+  .project-showcase.is-reversed .project-number { right: auto; left: 100%; margin-right: 0; margin-left: 1.2rem; }
   .case-study-backdrop { padding-left: 7vw; }
   .case-study { padding-inline: clamp(2.5rem, 5vw, 5rem); }
   .contact-lower { grid-template-columns: 1.1fr .8fr auto; align-items: end; }
