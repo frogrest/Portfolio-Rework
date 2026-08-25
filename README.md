@@ -3,6 +3,7 @@
 A cinematic React + TypeScript developer portfolio for Gian Carlo Noriega — full-stack developer, creative technologist, and video editor based in the Philippines.
 
 > **Full documentation:** see [DOCUMENTATION.md](./DOCUMENTATION.md) — a practical owner's manual covering architecture, file-by-file maps, content inventory, and step-by-step guides for every change you might make.
+> **Design system:** see [DESIGN.md](./DESIGN.md) — philosophy, typography, color palette, design choices, and visual assets.
 
 ## Stack
 
