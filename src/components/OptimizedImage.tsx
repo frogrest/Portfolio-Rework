@@ -17,11 +17,17 @@ interface OptimizedImageProps {
   sizes?: string
 }
 
-export function OptimizedImage({ image, alt, width, height, className = '' }: OptimizedImageProps) {
+export function OptimizedImage({ image, alt, width, height, className = '', sizes }: OptimizedImageProps) {
+  const srcSet = image.sources.length > 0
+    ? image.sources.map((source) => `${source.src} ${source.width}w`).join(', ')
+    : undefined
+
   return (
     <span className={`optimized-image ${className}`} style={{ aspectRatio: `${width} / ${height}` }}>
       <img
         src={image.fallback}
+        srcSet={srcSet}
+        sizes={sizes}
         alt={alt}
         width={width}
         height={height}

@@ -1,6 +1,7 @@
 import { ArrowUpRight, FileText, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef } from 'react'
+import { ThemeToggleButton } from './ThemeToggleButton'
 
 const blogHref = `${import.meta.env.BASE_URL}blog/`
 
@@ -56,7 +57,10 @@ export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuPr
         >
           <div className="mobile-menu__top">
             <a className="brand" href="#home" onClick={onClose} aria-label="GCN home">GCN<span>.</span></a>
-            <button ref={closeRef} className="icon-button" onClick={onClose} aria-label="Close navigation menu"><X size={22} /></button>
+            <div className="mobile-menu__top-actions">
+              <ThemeToggleButton />
+              <button ref={closeRef} className="icon-button" onClick={onClose} aria-label="Close navigation menu"><X size={22} /></button>
+            </div>
           </div>
           <nav className="mobile-menu__nav" aria-label="Mobile navigation">
             {items.map((item, index) => (

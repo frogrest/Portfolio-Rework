@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#07090c" />
     <meta name="color-scheme" content="dark" />
+    <script>
+      // Apply saved theme before paint to avoid a flash of the wrong theme.
+      ;(function () {
+        var theme = localStorage.getItem('theme')
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        }
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
     <meta name="description" content="Portfolio of Gian Carlo Noriega — full-stack developer, software engineer, creative technologist, and video editor based in the Philippines." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Gian Carlo Noriega | Full-Stack Developer & Creative Technologist" />

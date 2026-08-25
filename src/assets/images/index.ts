@@ -1,19 +1,18 @@
 import type { ResponsiveImage } from '../../components/OptimizedImage'
 
 const jpgs = import.meta.glob('./*.jpg', { eager: true, import: 'default' }) as Record<string, string>
-const webps = import.meta.glob('./*.webp', { eager: true, import: 'default' }) as Record<string, string>
 
 /**
- * Builds a ResponsiveImage from `<name>.jpg` plus its generated `<name>-<width>.webp`
- * variants (see `npm run optimize:images`). If the WebP variants are missing the
- * component still renders with the JPG alone.
+ * Builds a ResponsiveImage from `<name>.jpg` plus its generated `<name>-<width>.jpg`
+ * variants. The `<img>` uses a JPG `srcset` so browsers pick the best size; the
+ * full-size JPG is the fallback.
  */
 function imageSet(name: string): ResponsiveImage {
   const fallback = jpgs[`./${name}.jpg`]
   if (!fallback) throw new Error(`Missing image: src/assets/images/${name}.jpg`)
-  const sources = Object.entries(webps)
-    .filter(([path]) => path.startsWith(`./${name}-`) && /-(\d+)\.webp$/.test(path))
-    .map(([path, src]) => ({ src, width: Number(path.match(/-(\d+)\.webp$/)?.[1]) }))
+  const sources = Object.entries(jpgs)
+    .filter(([path]) => path.startsWith(`./${name}-`) && /-(\d+)\.jpg$/.test(path))
+    .map(([path, src]) => ({ src, width: Number(path.match(/-(\d+)\.jpg$/)?.[1]) }))
     .sort((a, b) => a.width - b.width)
   return { fallback, sources }
 }

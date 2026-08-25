@@ -1,7 +1,8 @@
-import { ArrowUpRight, FileText, Menu } from 'lucide-react'
+import { ArrowUpRight, Menu } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { MobileMenu } from './MobileMenu'
+import { ThemeToggleButton } from './ThemeToggleButton'
 
 const navItems = [
   { id: 'home', label: 'Home' },
@@ -43,9 +44,12 @@ export function Navbar() {
             )
           )}
         </nav>
-        <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open navigation menu" aria-expanded={menuOpen}>
-          <span>MENU</span><Menu size={18} />
-        </button>
+        <div className="navbar__actions">
+          <ThemeToggleButton />
+          <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open navigation menu" aria-expanded={menuOpen}>
+            <span>MENU</span><Menu size={18} />
+          </button>
+        </div>
       </header>
       <MobileMenu open={menuOpen} activeSection={activeSection} onClose={() => setMenuOpen(false)} items={navItems} />
     </>
