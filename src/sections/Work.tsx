@@ -10,7 +10,7 @@ export function Work() {
     <section id="work" className="section work-section" aria-labelledby="work-title">
       <div className="shell work-heading">
         <SectionLabel number="03" label="SELECTED WORK" />
-        <h2 id="work-title" className="display-heading display-heading--work">PRO<br />JECTS</h2>
+        <h2 id="work-title" className="display-heading display-heading--work">PROJECTS</h2>
       </div>
       <div className="shell projects-stack">
         {projects.map((project, index) => (
