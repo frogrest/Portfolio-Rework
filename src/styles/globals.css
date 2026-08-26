@@ -366,9 +366,12 @@ img, video { height: auto; }
   .hero h1 span { font-size: clamp(2.6rem, 14vw, 4.6rem); }
   .hero h1 strong { font-size: clamp(3.4rem, 18vw, 6rem); }
   .hero__lede { max-width: 88%; font-size: .94rem; }
+  .hero__actions .button--ghost { display: none; }
   .scroll-indicator { bottom: .6rem; }
   .about-section { align-items: start; }
   .portrait-frame { margin-top: .5rem; }
+  .portrait-frame__rim { filter: none; }
+  .portrait-frame__rim::before { display: none; }
   .project-features { grid-template-columns: 1fr; }
   .project-showcase__visual { order: -1; }
   .project-showcase__content { padding-inline: .15rem; }
