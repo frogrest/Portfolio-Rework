@@ -356,8 +356,7 @@ img, video { height: auto; }
 
 @media (max-width: 639px) {
   .hero { min-height: 100svh; padding-bottom: 2.3rem; align-items: flex-end; }
-  .hero__image-wrap { inset: 0; width: 100%; height: 100%; right: 0; top: 0; opacity: .7; }
-  .hero__image-wrap .optimized-image { height: 100%; aspect-ratio: auto !important; }
+  .hero__image-wrap { display: none; }
   .hero__wash { background:
     linear-gradient(180deg, var(--wash-mobile-top) 0%, var(--wash-mobile-mid) 42%, var(--wash-mobile-strong) 78%, var(--wash-start) 100%),
     radial-gradient(circle at 85% 15%, var(--wash-glow), transparent 40%); }
