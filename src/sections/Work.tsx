@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { CaseStudy } from '../components/CaseStudy'
 import { ProjectShowcase } from '../components/ProjectShowcase'
-import { SectionLabel } from '../components/SectionLabel'
 import { projects, type Project } from '../data/projects'
 
 export function Work() {
@@ -9,7 +8,11 @@ export function Work() {
   return (
     <section id="work" className="section work-section" aria-labelledby="work-title">
       <div className="shell work-heading">
-        <SectionLabel number="03" label="SELECTED WORK" />
+        <div className="section-label" aria-hidden="true">
+          <span>03</span>
+          <span>/</span>
+          <span>SELECTED WORK</span>
+        </div>
         <h2 id="work-title" className="display-heading display-heading--work">PROJECTS</h2>
       </div>
       <div className="shell projects-stack">

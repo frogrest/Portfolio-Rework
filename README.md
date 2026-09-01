@@ -10,7 +10,7 @@ A cinematic React + TypeScript developer portfolio for Gian Carlo Noriega — fu
 - React 19
 - Vite
 - TypeScript (strict)
-- Motion (animations)
+- GSAP + ScrollTrigger + Lenis (animations & smooth scroll)
 - Lucide React (icons)
 - Plain CSS with custom properties (no Tailwind)
 - sharp (image pipeline scripts)
@@ -88,8 +88,7 @@ These plain-HTML pages depend on `public/Styles/styles.css`, `public/JS/script.j
 
 ## Performance & accessibility
 
-- Below-the-fold images are lazy-loaded via `<picture>` with WebP `srcset` variants and JPG fallbacks; dimensions prevent layout shift.
-- The hero image is eagerly loaded.
-- Motion respects `prefers-reduced-motion`.
+- All images load eagerly per DESIGN.md:179; the OptimizedImage component sets `loading="eager"` consistently.
+- GSAP animations respect `prefers-reduced-motion`.
 - The app uses a modal case study rather than client-side routes, avoiding GitHub Pages refresh 404s; `public/404.html` redirects unknown URLs to the root.
 - Semantic sections, skip link, keyboard-focus styles, focus-trapped menus/modals with focus restoration, Escape-to-close, minimum touch targets, descriptive alt text, reduced-motion support.

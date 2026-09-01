@@ -6,13 +6,15 @@
     <meta name="theme-color" content="#07090c" />
     <meta name="color-scheme" content="dark" />
     <script>
-      // Apply saved theme before paint to avoid a flash of the wrong theme.
-      ;(function () {
-        var theme = localStorage.getItem('theme')
-        if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+      (function () {
+        var t = localStorage.getItem('theme')
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
         }
-        document.documentElement.setAttribute('data-theme', theme)
+        document.documentElement.setAttribute('data-theme', t)
+        document.documentElement.style.colorScheme = t
+        var meta = document.querySelector('meta[name="theme-color"]')
+        if (meta) meta.setAttribute('content', t === 'dark' ? '#07090c' : '#f4f5f3')
       })()
     </script>
     <meta name="description" content="Portfolio of Gian Carlo Noriega — full-stack developer, software engineer, creative technologist, and video editor based in the Philippines." />
@@ -33,7 +35,7 @@
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Gian Carlo Noriega | Full-Stack Developer & Creative Technologist</title>
     <script type="application/ld+json">
       {

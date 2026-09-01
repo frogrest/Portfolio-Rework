@@ -1,9 +1,8 @@
 import { ArrowUpRight, FileText, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useRef } from 'react'
-import { ThemeToggleButton } from './ThemeToggleButton'
+import { useEffect, useRef, useState } from 'react'
+import { gsap } from '../lib/gsap'
 
-const blogHref = `${import.meta.env.BASE_URL}blog/`
+const blogHref = `${import.meta.env.BASE_URL}blog/index.html`
 
 interface MobileMenuProps {
   open: boolean
@@ -16,6 +15,7 @@ export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuPr
   const closeRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const returnFocusRef = useRef<HTMLElement | null>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     if (!open) return
@@ -34,6 +34,7 @@ export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuPr
     }
     document.addEventListener('keydown', onKey)
     document.body.classList.add('menu-open')
+
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.classList.remove('menu-open')
@@ -41,44 +42,52 @@ export function MobileMenu({ open, activeSection, onClose, items }: MobileMenuPr
     }
   }, [open, onClose])
 
+  useEffect(() => {
+    if (open && menuRef.current) {
+      setVisible(true)
+      gsap.fromTo(menuRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' })
+    } else if (menuRef.current && visible) {
+      gsap.to(menuRef.current, {
+        opacity: 0,
+        duration: 0.25,
+        ease: 'power2.in',
+        onComplete: () => setVisible(false),
+      })
+    }
+  }, [open])
+
+  if (!visible) return null
+
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          ref={menuRef}
-          className="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site navigation"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-        >
-          <div className="mobile-menu__top">
-            <a className="brand" href="#home" onClick={onClose} aria-label="GCN home">GCN<span>.</span></a>
-            <div className="mobile-menu__top-actions">
-              <ThemeToggleButton />
-              <button ref={closeRef} className="icon-button" onClick={onClose} aria-label="Close navigation menu"><X size={22} /></button>
-            </div>
-          </div>
-          <nav className="mobile-menu__nav" aria-label="Mobile navigation">
-            {items.map((item, index) => (
-              <a
-                key={item.id}
-                href={item.id === 'blog' ? blogHref : `#${item.id}`}
-                className={activeSection === item.id ? 'is-active' : ''}
-                onClick={onClose}
-              >
-                <span className="mono">0{index + 1}</span>
-                <span>{item.label}</span>
-                {item.id === 'contact' && <ArrowUpRight size={20} aria-hidden="true" />}
-                {item.id === 'blog' && <FileText size={20} aria-hidden="true" />}
-              </a>
-            ))}
-          </nav>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div
+      ref={menuRef}
+      className="mobile-menu"
+      data-lenis-prevent
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+    >
+      <div className="mobile-menu__top">
+        <a className="brand" href="#home" onClick={onClose} aria-label="GCN home">GCN<span>.</span></a>
+        <div className="mobile-menu__top-actions">
+          <button ref={closeRef} className="icon-button" onClick={onClose} aria-label="Close navigation menu"><X size={22} /></button>
+        </div>
+      </div>
+      <nav className="mobile-menu__nav" aria-label="Mobile navigation">
+        {items.map((item, index) => (
+          <a
+            key={item.id}
+            href={item.id === 'blog' ? blogHref : `#${item.id}`}
+            className={activeSection === item.id ? 'is-active' : ''}
+            onClick={onClose}
+          >
+            <span className="mono">0{index + 1}</span>
+            <span>{item.label}</span>
+            {item.id === 'contact' && <ArrowUpRight size={20} aria-hidden="true" />}
+            {item.id === 'blog' && <FileText size={20} aria-hidden="true" />}
+          </a>
+        ))}
+      </nav>
+    </div>
   )
 }

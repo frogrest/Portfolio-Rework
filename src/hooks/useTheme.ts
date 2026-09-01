@@ -1,18 +1,30 @@
 import { useCallback, useEffect, useState } from 'react'
 
+export type Theme = 'dark' | 'light'
+
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark'
+  const stored = localStorage.getItem('theme')
+  if (stored === 'light' || stored === 'dark') return stored
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+}
+
 export function useTheme() {
-  const [theme, setTheme] = useState<'dark' | 'light'>(() =>
-    document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
-  )
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
+    const root = document.documentElement
+    root.dataset.theme = theme
+    root.style.colorScheme = theme
     localStorage.setItem('theme', theme)
     const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#f2f0eb' : '#07090c')
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#07090c' : '#f4f5f3')
   }, [theme])
 
-  const toggle = useCallback(() => setTheme((t) => (t === 'dark' ? 'light' : 'dark')), [])
+  const toggle = useCallback(
+    () => setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
+    [],
+  )
 
   return { theme, toggle }
 }

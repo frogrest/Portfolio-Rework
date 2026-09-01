@@ -62,7 +62,7 @@ Live site: **https://frogrest.github.io/Portfolio-Rework/**
 | Language | **TypeScript** (strict mode) | Types prevent data-shape bugs |
 | Build tool | **Vite 7** | Fast dev server, small production bundles |
 | Styling | **Plain CSS** (`globals.css`, custom properties) | Zero runtime cost; Tailwind was removed |
-| Animation | **Motion** (formerly Framer Motion) | Declarative scroll/enter animations, reduced-motion aware |
+| Animation | **GSAP + ScrollTrigger + Lenis** | Scroll-scrubbed/enter animations wired to a Lenis smooth-scroll engine; reduced-motion aware |
 | Icons | **Lucide React** | Tree-shakeable inline SVG icons |
 | Image pipeline | **sharp** (devDependency, scripts only) | Generates WebP variants + OG PNG |
 | Hosting | **GitHub Pages** via Actions | Free static hosting, auto-deploy on push |
@@ -121,9 +121,9 @@ Because there are no routes, a random deep URL on GitHub Pages would 404 — the
 
 | File | Purpose |
 | --- | --- |
-| `main.tsx` | Entry point: creates the React root, imports `globals.css` |
-| `App.tsx` | Composes the page: `ErrorBoundary` → navbar → five sections → footer |
-| `animations.ts` | Reusable Motion `Variants` (fadeUp, revealText, stagger, image reveal, etc.) |
+| `main.tsx` | Entry point: creates the React root, imports Lenis CSS, JetBrains Mono fonts, `globals.css` |
+| `App.tsx` | Composes the page: `ErrorBoundary` → cursor → navbar → five sections (+ marquee band) → footer |
+| `lib/gsap.ts` | Registers `ScrollTrigger` and sets GSAP defaults (`expo.out`, 0.9s) |
 | `styles/globals.css` | The entire stylesheet: design tokens, reset, all section/component styles, breakpoints |
 
 #### `src/components/`
@@ -137,8 +137,14 @@ Because there are no routes, a random deep URL on GitHub Pages would 404 — the
 | `OptimizedImage.tsx` | `<picture>` wrapper: WebP `srcset` + JPG fallback, lazy loading, placeholder fade-in |
 | `ErrorBoundary.tsx` | Catches render errors and shows a styled reload screen |
 | `ExperienceTimeline.tsx` | Renders the experience list in Resume |
-| `SectionLabel.tsx` | The numbered eyebrow labels (`02 · ABOUT`) |
 | `TechList.tsx` | Renders skill groups with icons |
+| `layout/SectionHead.tsx` | Grid header: mono index + `MaskedReveal` title |
+| `layout/MarqueeBand.tsx` | Tag carousel band sourced from `specialties`, wrapped in `Marquee` |
+| `motion/MaskedReveal.tsx` | Word-rise-through-overflow-mask reveal via GSAP ScrollTrigger |
+| `motion/ScrubText.tsx` | Scroll-scrubbed word-colour paragraph |
+| `motion/Marquee.tsx` | CSS-driven infinite-loop track with `data-speed` |
+| `ui/Magnetic.tsx` | Pointer-follow drift via `gsap.quickTo` (desktop fine-pointer) |
+| `ui/Cursor.tsx` | Lagged accent cursor ring (desktop fine-pointer, hidden on reduced-motion) |
 
 #### `src/sections/`
 
@@ -164,7 +170,8 @@ Because there are no routes, a random deep URL on GitHub Pages would 404 — the
 | File | Purpose |
 | --- | --- |
 | `useActiveSection.ts` | IntersectionObserver that tracks which section is in view |
-| `useReducedMotion.ts` | Reads `prefers-reduced-motion` and disables Motion variants |
+| `useLenis.ts` | Initializes the Lenis smooth-scroll engine and drives it through the GSAP ticker |
+| `useReducedMotion.ts` | Reads `prefers-reduced-motion` and disables GSAP timelines/motion |
 
 #### `src/assets/images/`
 
@@ -185,14 +192,14 @@ The five source JPGs plus their generated WebP variants and the `index.ts` modul
 
 ### How sections render
 
-`App.tsx` renders five sections inside `<main id="main">`. Each section has an `id` that matches a nav item (`home`, `about`, `resume`, `work`, `contact`). The navbar's `useActiveSection` observes those ids and highlights the current link. The mobile menu and desktop nav both link to the same `#id` anchors; `html { scroll-behavior: smooth }` animates the scroll.
+`App.tsx` renders five sections inside `<main id="main">`. Each section has an `id` that matches a nav item (`home`, `about`, `resume`, `work`, `contact`). The navbar's `useActiveSection` observes those ids and highlights the current link. The mobile menu and desktop nav both link to the same `#id` anchors, which are smooth-scrolled by Lenis (`anchors: true`).
 
 ### How animations work
 
-- Motion `Variants` are declared in `src/animations.ts`.
-- Sections use `whileInView` with `viewport={{ once: true, amount: ... }}`, so they animate once as they enter the viewport.
-- Hero uses `initial`/`animate` (on load) plus a mouse-parallax via `useSpring`/`useMotionValue`.
-- `useReducedMotion` disables initial hidden states when the user prefers reduced motion, and `globals.css` has a `prefers-reduced-motion` media query that collapses durations.
+- `src/lib/gsap.ts` registers `ScrollTrigger` and sets GSAP defaults (`expo.out`, 0.9s).
+- `useLenis()` creates the Lenis engine and ties its `scroll` event to `ScrollTrigger.update` through the GSAP ticker, so scrub/enter triggers stay in sync.
+- Scroll-in reveals use `gsap.fromTo(..., { scrollTrigger })` with `once: true`; `MaskedReveal` (word rise through an overflow mask) and `ScrubText` (scroll-scrubbed word colour) are the shared GSAP primitives.
+- `useReducedMotion` disables the initial hidden states when the user prefers reduced motion, and `globals.css` has a `prefers-reduced-motion` media query that collapses durations and pauses the CSS marquee.
 
 ### How the case-study modal works
 
@@ -279,26 +286,29 @@ The site URL is determined by the repo name because Vite's `base` is `/Portfolio
 **Name** — `src/sections/Hero.tsx`:
 
 ```tsx
-<motion.h1 id="hero-title" variants={revealText}><span>GIAN CARLO</span><strong>NORIEGA</strong></motion.h1>
+<h1 id="hero-title">
+  <MaskedReveal text="GIAN CARLO" className="hero__anim" as="span" />
+  <MaskedReveal text="NORIEGA" className="hero__anim" as="strong" />
+</h1>
 ```
 
-Change the two words inside `<span>` (light) and `<strong>` (heavy).
+Change the two words. The first `MaskedReveal` is the light line (`as="span"`), the second is the heavy line (`as="strong"`). The `.hero__anim` class drives the load-in stagger.
 
 **Hero eyebrow** — same file:
 
 ```tsx
-<motion.p className="eyebrow hero__eyebrow" variants={revealText}>FULL-STACK DEVELOPER<br />& CREATIVE TECHNOLOGIST</motion.p>
+<p className="eyebrow hero__eyebrow hero__anim">FULL-STACK DEVELOPER<br />& CREATIVE TECHNOLOGIST</p>
 ```
 
 **Hero lede** — same file:
 
 ```tsx
-<motion.p className="hero__lede" variants={revealText}>
+<p className="hero__lede hero__anim">
   I build production software and immersive digital experiences where engineering meets visual storytelling.
-</motion.p>
+</p>
 ```
 
-**Location** — same file: `<motion.p className="hero__location mono" variants={revealText}>Philippines · Available Remote</motion.p>`
+**Location** — same file: `<p className="hero__location mono hero__anim">Philippines · Available Remote</p>`
 
 > The name also appears in: `index.html` (title/meta/JSON-LD), the About caption, the footer © line, and `public/og-cover.svg`. Update those for consistency.
 

@@ -2,7 +2,7 @@ import { ArrowUpRight, Menu } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { MobileMenu } from './MobileMenu'
-import { ThemeToggleButton } from './ThemeToggleButton'
+import { ThemeToggle } from './ui/ThemeToggle'
 
 const navItems = [
   { id: 'home', label: 'Home' },
@@ -13,7 +13,7 @@ const navItems = [
   { id: 'blog', label: 'Blog' },
 ]
 
-const blogHref = `${import.meta.env.BASE_URL}blog/`
+const blogHref = `${import.meta.env.BASE_URL}blog/index.html`
 
 export function Navbar() {
   const ids = useMemo(() => navItems.map((item) => item.id).filter((id) => id !== 'blog'), [])
@@ -30,22 +30,27 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
-        <a className="brand" href="#home" aria-label="GCN home">GCN<span>.</span></a>
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) =>
-            item.id === 'blog' ? (
-              <a key={item.id} href={blogHref}>{item.label}</a>
-            ) : (
-              <a key={item.id} href={`#${item.id}`} className={activeSection === item.id ? 'is-active' : ''}>
-                {item.label}
-                {item.id === 'contact' && <ArrowUpRight size={14} aria-hidden="true" />}
-              </a>
-            )
-          )}
-        </nav>
+      <header className={`navbar site-header ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="shell site-header__inner">
+          <a className="brand" href="#home" aria-label="GCN home">GCN<span>.</span></a>
+          <nav className="site-nav" aria-label="Primary navigation">
+            {navItems.map((item) => {
+              const isActive = item.id !== 'blog' && activeSection === item.id
+              return (
+                <a
+                  key={item.id}
+                  href={item.id === 'blog' ? blogHref : `#${item.id}`}
+                  className={`site-nav__link${isActive ? ' is-active' : ''}`}
+                >
+                  {item.label}
+                  {item.id === 'contact' && <ArrowUpRight size={14} aria-hidden="true" />}
+                </a>
+              )
+            })}
+          </nav>
+        </div>
         <div className="navbar__actions">
-          <ThemeToggleButton />
+          <ThemeToggle />
           <button className="menu-button" onClick={() => setMenuOpen(true)} aria-label="Open navigation menu" aria-expanded={menuOpen}>
             <span>MENU</span><Menu size={18} />
           </button>

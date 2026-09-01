@@ -1,53 +1,64 @@
-import { ArrowDown, ArrowRight } from 'lucide-react'
-import { motion, useMotionValue, useSpring } from 'motion/react'
-import type { MouseEvent } from 'react'
-import { heroWorkspace } from '../assets/images'
-import { revealText, staggerChildren } from '../animations'
+import { ArrowRight } from 'lucide-react'
+import { useLayoutEffect, useRef } from 'react'
+import { gsap } from '../lib/gsap'
+import { Magnetic } from '../components/ui/Magnetic'
 import { OptimizedImage } from '../components/OptimizedImage'
 import { useReducedMotion } from '../hooks/useReducedMotion'
+import { heroWorkspace } from '../assets/images'
 
 export function Hero() {
   const reduced = useReducedMotion()
-  const x = useSpring(useMotionValue(0), { stiffness: 70, damping: 20 })
-  const y = useSpring(useMotionValue(0), { stiffness: 70, damping: 20 })
+  const contentRef = useRef<HTMLDivElement>(null)
 
-  const onMove = (event: MouseEvent<HTMLElement>) => {
-    if (reduced || !window.matchMedia('(pointer: fine)').matches) return
-    const rect = event.currentTarget.getBoundingClientRect()
-    x.set(((event.clientX - rect.left) / rect.width - 0.5) * 12)
-    y.set(((event.clientY - rect.top) / rect.height - 0.5) * 10)
-  }
+  useLayoutEffect(() => {
+    if (reduced) return
+    const el = contentRef.current
+    if (!el) return
+
+    const ctx = gsap.context(() => {
+      const items = el.querySelectorAll('.hero__anim')
+      gsap.fromTo(items, { opacity: 0, y: 32 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'expo.out',
+        stagger: 0.08,
+        delay: 0.1,
+      })
+    }, el)
+
+    return () => ctx.revert()
+  }, [reduced])
 
   return (
-    <section id="home" className="hero" onMouseMove={onMove} aria-labelledby="hero-title">
-      <motion.div
-        className="hero__image-wrap"
-        style={{ x, y }}
-        initial={reduced ? false : { scale: 1.04, opacity: 0.72 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <OptimizedImage image={heroWorkspace} alt="Cinematic dusk scene with a coding monitor and keyboard." width={1000} height={1324} sizes="(min-width: 1024px) 45vw, 74vw" />
-      </motion.div>
+    <section id="home" className="hero" aria-labelledby="hero-title">
+      <div className="hero__image-wrap">
+        <Magnetic strength={0.15}>
+          <OptimizedImage image={heroWorkspace} alt="Cinematic dusk scene with a coding monitor and keyboard." width={1000} height={1324} sizes="(min-width: 1024px) 45vw, 74vw" />
+        </Magnetic>
+      </div>
       <div className="hero__wash" aria-hidden="true" />
       <div className="hero__grain" aria-hidden="true" />
 
-      <motion.div className="hero__content shell" variants={staggerChildren} initial={reduced ? false : 'hidden'} animate="visible">
-        <motion.p className="eyebrow hero__eyebrow" variants={revealText}>FULL-STACK DEVELOPER<br />& CREATIVE TECHNOLOGIST</motion.p>
+      <div ref={contentRef} className="hero__content shell">
+        <p className="eyebrow hero__eyebrow hero__anim">FULL-STACK DEVELOPER<br />& CREATIVE TECHNOLOGIST</p>
         <div className="hero__title-mask">
-          <motion.h1 id="hero-title" variants={revealText}><span>GIAN CARLO</span><strong>NORIEGA</strong></motion.h1>
+          <h1 id="hero-title">
+            <span className="hero__anim">GIAN CARLO</span>
+            <strong className="hero__anim">NORIEGA</strong>
+          </h1>
         </div>
-        <motion.p className="hero__lede" variants={revealText}>
+        <p className="hero__lede hero__anim">
           I build production software and immersive digital experiences where engineering meets visual storytelling.
-        </motion.p>
-        <motion.div className="hero__actions" variants={revealText}>
-          <a className="button button--primary" href="#work">VIEW MY WORK <ArrowRight size={17} /></a>
+        </p>
+        <div className="hero__actions hero__anim">
+          <Magnetic strength={0.2}>
+            <a className="button button--primary" href="#work">VIEW MY WORK <ArrowRight size={17} aria-hidden="true" /></a>
+          </Magnetic>
           <a className="button button--ghost" href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noreferrer">RESUME</a>
-        </motion.div>
-        <motion.p className="hero__location mono" variants={revealText}>Philippines · Available Remote</motion.p>
-      </motion.div>
-
-      <a className="scroll-indicator" href="#about" aria-label="Scroll to about section"><span>SCROLL</span><ArrowDown size={16} /></a>
+        </div>
+        <p className="hero__location mono hero__anim">Philippines · Available Remote</p>
+      </div>
     </section>
   )
 }
